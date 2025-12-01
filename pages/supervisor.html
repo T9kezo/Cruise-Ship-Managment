@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Dashboard - Cruise Ship Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <div class="user-info">
+                <span id="user-email"></span> | Supervisor Dashboard
+            </div>
+            <button id="logout-btn">Logout</button>
+        </nav>
+        <header>
+            <h1>Supervisor Dashboard</h1>
+        </header>
+        <main>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Stationery Orders</h3>
+                    <button onclick="viewOrders()">View All Stationery Orders</button>
+                    <button onclick="viewOrders('pending')">View Pending Orders</button>
+                    <button onclick="viewOrders('processing')">View Processing Orders</button>
+                </div>
+            </div>
+
+            <!-- Orders List Modal -->
+            <div id="orders-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="orders-title">Stationery Orders</h3>
+                        <span class="close" onclick="closeModal('orders-modal')">&times;</span>
+                    </div>
+                    <div id="orders-content"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="../js/supervisor.js"></script>
+</body>
+</html>
+

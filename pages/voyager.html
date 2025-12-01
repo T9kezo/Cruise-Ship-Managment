@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voyager Dashboard - Cruise Ship Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <div class="user-info">
+                <span id="user-email"></span> | Voyager Dashboard
+            </div>
+            <button id="logout-btn">Logout</button>
+        </nav>
+        <header>
+            <h1>Voyager Dashboard</h1>
+        </header>
+        <main>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Catering Items</h3>
+                    <button onclick="openModal('catering-modal')">Order Catering Items</button>
+                    <button onclick="viewOrders('catering')">View My Orders</button>
+                </div>
+                <div class="card">
+                    <h3>Stationery Items</h3>
+                    <button onclick="openModal('stationery-modal')">Order Stationery Items</button>
+                    <button onclick="viewOrders('stationery')">View My Orders</button>
+                </div>
+                <div class="card">
+                    <h3>Resort-Movie Tickets</h3>
+                    <button onclick="openModal('movie-modal')">Book Movie Tickets</button>
+                    <button onclick="viewBookings('movie')">View My Bookings</button>
+                </div>
+                <div class="card">
+                    <h3>Beauty Salon</h3>
+                    <button onclick="openModal('beauty-modal')">Book Beauty Salon</button>
+                    <button onclick="viewBookings('beauty')">View My Bookings</button>
+                </div>
+                <div class="card">
+                    <h3>Fitness Center</h3>
+                    <button onclick="openModal('fitness-modal')">Book Fitness Center</button>
+                    <button onclick="viewBookings('fitness')">View My Bookings</button>
+                </div>
+                <div class="card">
+                    <h3>Party Hall</h3>
+                    <button onclick="openModal('party-modal')">Book Party Hall</button>
+                    <button onclick="viewBookings('party')">View My Bookings</button>
+                </div>
+            </div>
+
+            <!-- Catering Modal -->
+            <div id="catering-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Order Catering Items</h3>
+                        <span class="close" onclick="closeModal('catering-modal')">&times;</span>
+                    </div>
+                    <div id="catering-items-list"></div>
+                </div>
+            </div>
+
+            <!-- Stationery Modal -->
+            <div id="stationery-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Order Stationery Items</h3>
+                        <span class="close" onclick="closeModal('stationery-modal')">&times;</span>
+                    </div>
+                    <div id="stationery-items-list"></div>
+                </div>
+            </div>
+
+            <!-- Movie Modal -->
+            <div id="movie-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Book Resort-Movie Tickets</h3>
+                        <span class="close" onclick="closeModal('movie-modal')">&times;</span>
+                    </div>
+                    <form id="movie-booking-form">
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="movie-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time:</label>
+                            <input type="time" id="movie-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Seats:</label>
+                            <input type="number" id="movie-seats" min="1" required>
+                        </div>
+                        <button type="submit">Book Tickets</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Beauty Salon Modal -->
+            <div id="beauty-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Book Beauty Salon</h3>
+                        <span class="close" onclick="closeModal('beauty-modal')">&times;</span>
+                    </div>
+                    <form id="beauty-booking-form">
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="beauty-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time:</label>
+                            <input type="time" id="beauty-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Service:</label>
+                            <select id="beauty-service" required>
+                                <option value="">Select Service</option>
+                                <option value="haircut">Haircut</option>
+                                <option value="massage">Massage</option>
+                                <option value="facial">Facial</option>
+                                <option value="manicure">Manicure</option>
+                            </select>
+                        </div>
+                        <button type="submit">Book Appointment</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Fitness Center Modal -->
+            <div id="fitness-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Book Fitness Center</h3>
+                        <span class="close" onclick="closeModal('fitness-modal')">&times;</span>
+                    </div>
+                    <form id="fitness-booking-form">
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="fitness-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time:</label>
+                            <input type="time" id="fitness-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Session Type:</label>
+                            <select id="fitness-session" required>
+                                <option value="">Select Session</option>
+                                <option value="gym">Gym</option>
+                                <option value="yoga">Yoga</option>
+                                <option value="pilates">Pilates</option>
+                                <option value="personal-training">Personal Training</option>
+                            </select>
+                        </div>
+                        <button type="submit">Book Session</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Party Hall Modal -->
+            <div id="party-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Book Party Hall</h3>
+                        <span class="close" onclick="closeModal('party-modal')">&times;</span>
+                    </div>
+                    <form id="party-booking-form">
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="party-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time:</label>
+                            <input type="time" id="party-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Type:</label>
+                            <select id="party-type" required>
+                                <option value="">Select Event Type</option>
+                                <option value="birthday">Birthday</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="business">Business</option>
+                                <option value="anniversary">Anniversary</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Guests:</label>
+                            <input type="number" id="party-guests" min="1" required>
+                        </div>
+                        <button type="submit">Book Party Hall</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="../js/voyager.js"></script>
+</body>
+</html>
+

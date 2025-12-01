@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cruise Ship Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <div class="user-info">
+                <span id="user-email"></span> | Admin Dashboard
+            </div>
+            <button id="logout-btn">Logout</button>
+        </nav>
+        <header>
+            <h1>Admin Dashboard</h1>
+        </header>
+        <main>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Catering Items</h3>
+                    <button onclick="openModal('add-catering-modal')">Add Catering Item</button>
+                    <button onclick="viewItems('catering')">View/Edit Catering Items</button>
+                </div>
+                <div class="card">
+                    <h3>Stationery Items</h3>
+                    <button onclick="openModal('add-stationery-modal')">Add Stationery Item</button>
+                    <button onclick="viewItems('stationery')">View/Edit Stationery Items</button>
+                </div>
+                <div class="card">
+                    <h3>Services Menu</h3>
+                    <button onclick="openModal('add-service-modal')">Add Service</button>
+                    <button onclick="viewItems('services')">View/Edit Services</button>
+                </div>
+                <div class="card">
+                    <h3>Voyager Registration</h3>
+                    <button onclick="openModal('register-voyager-modal')">Register New Voyager</button>
+                    <button onclick="viewVoyagers()">View Voyagers</button>
+                </div>
+            </div>
+
+            <!-- Add Catering Item Modal -->
+            <div id="add-catering-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add Catering Item</h3>
+                        <span class="close" onclick="closeModal('add-catering-modal')">&times;</span>
+                    </div>
+                    <form id="add-catering-form">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="catering-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea id="catering-description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="number" id="catering-price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category:</label>
+                            <select id="catering-category" required>
+                                <option value="snacks">Snacks</option>
+                                <option value="food">Food</option>
+                                <option value="beverages">Beverages</option>
+                            </select>
+                        </div>
+                        <button type="submit">Add Item</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Add Stationery Item Modal -->
+            <div id="add-stationery-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add Stationery Item</h3>
+                        <span class="close" onclick="closeModal('add-stationery-modal')">&times;</span>
+                    </div>
+                    <form id="add-stationery-form">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="stationery-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea id="stationery-description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="number" id="stationery-price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category:</label>
+                            <select id="stationery-category" required>
+                                <option value="gifts">Gift Items</option>
+                                <option value="chocolates">Chocolates</option>
+                                <option value="books">Books</option>
+                            </select>
+                        </div>
+                        <button type="submit">Add Item</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Add Service Modal -->
+            <div id="add-service-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add Service</h3>
+                        <span class="close" onclick="closeModal('add-service-modal')">&times;</span>
+                    </div>
+                    <form id="add-service-form">
+                        <div class="form-group">
+                            <label>Service Type:</label>
+                            <select id="service-type" required>
+                                <option value="movie">Resort-Movie</option>
+                                <option value="beauty">Beauty Salon</option>
+                                <option value="fitness">Fitness Center</option>
+                                <option value="party">Party Hall</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="service-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea id="service-description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="number" id="service-price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Availability:</label>
+                            <input type="number" id="service-availability" min="0" required>
+                        </div>
+                        <button type="submit">Add Service</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Register Voyager Modal -->
+            <div id="register-voyager-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Register New Voyager</h3>
+                        <span class="close" onclick="closeModal('register-voyager-modal')">&times;</span>
+                    </div>
+                    <form id="register-voyager-form">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="voyager-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="voyager-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" id="voyager-password" required>
+                        </div>
+                        <button type="submit">Register Voyager</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Items List Modal -->
+            <div id="items-list-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="items-list-title">Items</h3>
+                        <span class="close" onclick="closeModal('items-list-modal')">&times;</span>
+                    </div>
+                    <div id="items-list-content"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="../js/admin.js"></script>
+</body>
+</html>
+

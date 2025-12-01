@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise Ship Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "appwrite": "https://esm.sh/appwrite@13.0.2"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Cruise Ship Management System</h1>
+        </header>
+        <main>
+            <div id="auth-container">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" id="login-tab" onclick="switchTab('login')">Login</button>
+                    <button class="tab-btn" id="register-tab" onclick="switchTab('register')">Register</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form active">
+                    <h2>Login</h2>
+                    <form id="auth-form">
+                        <input type="email" id="email" placeholder="Email" required>
+                        <input type="password" id="password" placeholder="Password" required>
+                        <select id="role" required>
+                            <option value="">Select Role</option>
+                            <option value="voyager">Voyager</option>
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="headcook">Head-Cook</option>
+                            <option value="supervisor">Supervisor</option>
+                        </select>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p id="auth-message"></p>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="register-form" class="auth-form">
+                    <h2>Register</h2>
+                    <form id="register-form-element">
+                        <input type="text" id="reg-name" placeholder="Full Name" required>
+                        <input type="email" id="reg-email" placeholder="Email" required>
+                        <input type="password" id="reg-password" placeholder="Password" required>
+                        <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                        <select id="reg-role" required>
+                            <option value="">Select Role</option>
+                            <option value="voyager">Voyager</option>
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="headcook">Head-Cook</option>
+                            <option value="supervisor">Supervisor</option>
+                        </select>
+                        <button type="submit">Register</button>
+                    </form>
+                    <p id="reg-message"></p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
