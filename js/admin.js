@@ -5,31 +5,59 @@ import { createItem, getItems, updateItem, deleteItem } from './database.js';
 import { account } from './appwrite.js';
 import { signup } from './auth.js';
 
-// Global functions for HTML onclick handlers
-window.openModal = function(modalId) {
+// Helpers to map dashboard types to collection IDs and back
+function getCollectionId(type) {
+    switch (type) {
+        case 'catering':
+            return 'catering_items';
+        case 'stationery':
+            return 'stationery_items';
+        case 'services':
+            return 'services';
+        default:
+            return type;
+    }
+}
+
+function getTypeFromCollectionId(collectionId) {
+    switch (collectionId) {
+        case 'catering_items':
+            return 'catering';
+        case 'stationery_items':
+            return 'stationery';
+        case 'services':
+            return 'services';
+        default:
+            return collectionId;
+    }
+}
+
+// Modal functions
+function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.add('active');
     }
-};
+}
 
-window.closeModal = function(modalId) {
+function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.remove('active');
     }
-};
+}
 
-window.viewItems = async function(type) {
+async function viewItems(type) {
     try {
-        const items = await getItems(`${type}_items`);
+        const collectionId = getCollectionId(type);
+        const items = await getItems(collectionId);
         const modal = document.getElementById('items-list-modal');
         const title = document.getElementById('items-list-title');
         const content = document.getElementById('items-list-content');
-        
+
         title.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Items`;
         content.innerHTML = '<table><thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Category</th><th>Actions</th></tr></thead><tbody></tbody></table>';
-        
+
         const tbody = content.querySelector('tbody');
         items.forEach(item => {
             const row = document.createElement('tr');
@@ -39,30 +67,30 @@ window.viewItems = async function(type) {
                 <td>$${item.price}</td>
                 <td>${item.category}</td>
                 <td>
-                    <button onclick="editItem('${type}_items', '${item.$id}')">Edit</button>
-                    <button onclick="deleteItemHandler('${type}_items', '${item.$id}')">Delete</button>
+                    <button class="edit-item" data-collection="${collectionId}" data-id="${item.$id}">Edit</button>
+                    <button class="delete-item" data-collection="${collectionId}" data-id="${item.$id}">Delete</button>
                 </td>
             `;
             tbody.appendChild(row);
         });
-        
+
         modal.classList.add('active');
     } catch (error) {
         logger.error('Error loading items', error);
         alert('Error loading items. Please try again.');
     }
-};
+}
 
-window.viewVoyagers = async function() {
+async function viewVoyagers() {
     try {
         const voyagers = await getItems('users', [['role', '==', 'voyager']]);
         const modal = document.getElementById('items-list-modal');
         const title = document.getElementById('items-list-title');
         const content = document.getElementById('items-list-content');
-        
+
         title.textContent = 'Registered Voyagers';
         content.innerHTML = '<table><thead><tr><th>Name</th><th>Email</th><th>Registered Date</th></tr></thead><tbody></tbody></table>';
-        
+
         const tbody = content.querySelector('tbody');
         voyagers.forEach(voyager => {
             const row = document.createElement('tr');
@@ -73,32 +101,33 @@ window.viewVoyagers = async function() {
             `;
             tbody.appendChild(row);
         });
-        
+
         modal.classList.add('active');
     } catch (error) {
         logger.error('Error loading voyagers', error);
         alert('Error loading voyagers. Please try again.');
     }
-};
+}
 
-window.editItem = async function(collectionId, itemId) {
+async function editItem(collectionId, itemId) {
     // TODO: Implement edit functionality
     alert('Edit functionality coming soon!');
-};
+}
 
-window.deleteItemHandler = async function(collectionId, itemId) {
+async function deleteItemHandler(collectionId, itemId) {
     if (confirm('Are you sure you want to delete this item?')) {
         try {
             await deleteItem(collectionId, itemId);
             logger.info(`Item deleted: ${itemId}`);
             alert('Item deleted successfully!');
-            viewItems(collectionId.replace('_items', ''));
+            const type = getTypeFromCollectionId(collectionId);
+            viewItems(type);
         } catch (error) {
             logger.error('Error deleting item', error);
             alert('Error deleting item. Please try again.');
         }
     }
-};
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     logger.info('Admin dashboard loaded');
@@ -127,6 +156,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Setup forms
     setupForms();
+
+    // Setup button listeners
+    setupButtonListeners();
 });
 
 function setupForms() {
@@ -172,6 +204,58 @@ function setupForms() {
             email: document.getElementById('voyager-email').value,
             password: document.getElementById('voyager-password').value
         });
+    });
+}
+
+function setupButtonListeners() {
+    // Open modal buttons
+    document.querySelectorAll('.open-modal').forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal');
+            openModal(modalId);
+        });
+    });
+
+    // Close modal buttons
+    document.querySelectorAll('.close').forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal');
+            closeModal(modalId);
+        });
+    });
+
+    // View items buttons
+    document.querySelectorAll('.view-items').forEach(button => {
+        button.addEventListener('click', () => {
+            const type = button.getAttribute('data-type');
+            viewItems(type);
+        });
+    });
+
+    // View voyagers button (optional on page)
+    const viewVoyagersBtn = document.querySelector('.view-voyagers');
+    if (viewVoyagersBtn) {
+        viewVoyagersBtn.addEventListener('click', () => {
+            viewVoyagers();
+        });
+    }
+
+    // Edit item buttons (delegated event listener)
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('edit-item')) {
+            const collectionId = e.target.getAttribute('data-collection');
+            const itemId = e.target.getAttribute('data-id');
+            editItem(collectionId, itemId);
+        }
+    });
+
+    // Delete item buttons (delegated event listener)
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-item')) {
+            const collectionId = e.target.getAttribute('data-collection');
+            const itemId = e.target.getAttribute('data-id');
+            deleteItemHandler(collectionId, itemId);
+        }
     });
 }
 

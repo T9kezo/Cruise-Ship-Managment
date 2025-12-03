@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Head-Cook Dashboard - Cruise Ship Management</title>
+    <title>Head Cook Dashboard - Cruise Ship Management</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://esm.sh 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*; font-src 'self' data:; base-uri 'self'; object-src 'none'">
     <link rel="stylesheet" href="../css/styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "appwrite": "https://esm.sh/appwrite@13.0.2"
+        }
+    }
+    </script>
 </head>
 <body>
     <div id="app">
         <nav>
             <div class="user-info">
-                <span id="user-email"></span> | Head-Cook Dashboard
+                <span id="user-email" aria-live="polite"></span> | Head Cook Dashboard
             </div>
             <button id="logout-btn">Logout</button>
         </nav>
@@ -21,24 +29,29 @@
             <div class="dashboard">
                 <div class="card">
                     <h3>Catering Orders</h3>
-                    <button onclick="viewOrders()">View All Catering Orders</button>
-                    <button onclick="viewOrders('pending')">View Pending Orders</button>
-                    <button onclick="viewOrders('processing')">View Processing Orders</button>
+                    <button id="btn-view-all" data-action="view-orders" data-status="all">View All Catering Orders</button>
+                    <button id="btn-view-pending" data-action="view-orders" data-status="pending">View Pending Orders</button>
+                    <button id="btn-view-processing" data-action="view-orders" data-status="processing">View Processing Orders</button>
                 </div>
             </div>
 
             <!-- Orders List Modal -->
-            <div id="orders-modal" class="modal">
-                <div class="modal-content">
+            <div id="orders-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orders-title" aria-hidden="true">
+                <div class="modal-content" role="document">
                     <div class="modal-header">
                         <h3 id="orders-title">Catering Orders</h3>
-                        <span class="close" onclick="closeModal('orders-modal')">&times;</span>
+                        <button type="button" class="close" id="orders-close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div id="orders-content"></div>
                 </div>
             </div>
         </main>
     </div>
+    <noscript>
+        <div class="no-script">This dashboard requires JavaScript to function properly. Please enable JavaScript in your browser settings.</div>
+    </noscript>
     <script type="module" src="../js/headcook.js"></script>
 </body>
 </html>

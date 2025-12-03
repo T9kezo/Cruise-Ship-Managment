@@ -14,7 +14,7 @@ appwrite databases createCollection \
   --databaseId "$DATABASE_ID" \
   --collectionId "users" \
   --name "Users" \
-  --permissions "read(\"any\")" "write(\"users\")"
+  --permissions "read(\"users\")" "create(\"users\")" "update(\"users\")" "delete(\"users\")"
 
 # Add attributes
 appwrite databases createStringAttribute \
@@ -44,7 +44,7 @@ appwrite databases createCollection \
   --databaseId "$DATABASE_ID" \
   --collectionId "catering_items" \
   --name "Catering Items" \
-  --permissions "read(\"any\")" "write(\"users\")"
+  --permissions "read(\"users\")" "create(\"users\")" "update(\"users\")" "delete(\"users\")"
 
 appwrite databases createStringAttribute \
   --databaseId "$DATABASE_ID" \
@@ -79,7 +79,7 @@ appwrite databases createCollection \
   --databaseId "$DATABASE_ID" \
   --collectionId "stationery_items" \
   --name "Stationery Items" \
-  --permissions "read(\"any\")" "write(\"users\")"
+  --permissions "read(\"users\")" "create(\"users\")" "update(\"users\")" "delete(\"users\")"
 
 appwrite databases createStringAttribute \
   --databaseId "$DATABASE_ID" \
@@ -114,7 +114,7 @@ appwrite databases createCollection \
   --databaseId "$DATABASE_ID" \
   --collectionId "services" \
   --name "Services" \
-  --permissions "read(\"any\")" "write(\"users\")"
+  --permissions "read(\"users\")" "create(\"users\")" "update(\"users\")" "delete(\"users\")"
 
 appwrite databases createStringAttribute \
   --databaseId "$DATABASE_ID" \
@@ -155,7 +155,7 @@ appwrite databases createCollection \
   --databaseId "$DATABASE_ID" \
   --collectionId "orders" \
   --name "Orders" \
-  --permissions "read(\"any\")" "write(\"users\")"
+  --permissions "read(\"users\")" "create(\"users\")" "update(\"users\")" "delete(\"users\")"
 
 appwrite databases createStringAttribute \
   --databaseId "$DATABASE_ID" \
@@ -223,7 +223,7 @@ appwrite databases createCollection \
   --databaseId "$DATABASE_ID" \
   --collectionId "bookings" \
   --name "Bookings" \
-  --permissions "read(\"any\")" "write(\"users\")"
+  --permissions "read(\"users\")" "create(\"users\")" "update(\"users\")" "delete(\"users\")"
 
 appwrite databases createStringAttribute \
   --databaseId "$DATABASE_ID" \

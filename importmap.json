@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "appwrite": "https://esm.sh/appwrite@13.0.2"
+  }
+}

@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard - Cruise Ship Management</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://esm.sh 'unsafe-inline'; script-src-elem 'self' https://esm.sh 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*; font-src 'self' data:; base-uri 'self'; object-src 'none'">
     <link rel="stylesheet" href="../css/styles.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "appwrite": "https://esm.sh/appwrite@13.0.2"
+      }
+    }
+    </script>
 </head>
 <body>
     <div id="app">
@@ -21,34 +29,39 @@
             <div class="dashboard">
                 <div class="card">
                     <h3>Resort-Movie Bookings</h3>
-                    <button onclick="viewBookings('movie')">View Movie Bookings</button>
+                    <button id="btn-bookings-movie" data-action="view-bookings" data-type="movie">View Movie Bookings</button>
                 </div>
                 <div class="card">
                     <h3>Beauty Salon Bookings</h3>
-                    <button onclick="viewBookings('beauty')">View Beauty Salon Bookings</button>
+                    <button id="btn-bookings-beauty" data-action="view-bookings" data-type="beauty">View Beauty Salon Bookings</button>
                 </div>
                 <div class="card">
                     <h3>Fitness Center Bookings</h3>
-                    <button onclick="viewBookings('fitness')">View Fitness Center Bookings</button>
+                    <button id="btn-bookings-fitness" data-action="view-bookings" data-type="fitness">View Fitness Center Bookings</button>
                 </div>
                 <div class="card">
                     <h3>Party Hall Bookings</h3>
-                    <button onclick="viewBookings('party')">View Party Hall Bookings</button>
+                    <button id="btn-bookings-party" data-action="view-bookings" data-type="party">View Party Hall Bookings</button>
                 </div>
             </div>
 
             <!-- Bookings List Modal -->
-            <div id="bookings-modal" class="modal">
-                <div class="modal-content">
+            <div id="bookings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="bookings-title" aria-hidden="true">
+                <div class="modal-content" role="document">
                     <div class="modal-header">
                         <h3 id="bookings-title">Bookings</h3>
-                        <span class="close" onclick="closeModal('bookings-modal')">&times;</span>
+                        <button type="button" class="close" id="bookings-close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div id="bookings-content"></div>
                 </div>
             </div>
         </main>
     </div>
+    <noscript>
+        <div class="no-script">This dashboard requires JavaScript to function properly. Please enable JavaScript in your browser.</div>
+    </noscript>
     <script type="module" src="../js/manager.js"></script>
 </body>
 </html>

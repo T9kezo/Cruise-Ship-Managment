@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voyager Dashboard - Cruise Ship Management</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "appwrite": "https://esm.sh/appwrite@13.0.2"
+        }
+    }
+    </script>
 </head>
 <body>
     <div id="app">
@@ -155,6 +162,16 @@
                                 <option value="personal-training">Personal Training</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Training Equipment:</label>
+                            <select id="fitness-equipment" required>
+                                <option value="">Select Equipment</option>
+                                <option value="treadmill">Treadmill</option>
+                                <option value="dumbbells">Dumbbells</option>
+                                <option value="cycling-machine">Cycling Machine</option>
+                                <option value="rowing-machine">Rowing Machine</option>
+                            </select>
+                        </div>
                         <button type="submit">Book Session</button>
                     </form>
                 </div>
@@ -200,4 +217,3 @@
     <script type="module" src="../js/voyager.js"></script>
 </body>
 </html>
-

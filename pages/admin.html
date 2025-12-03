@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Cruise Ship Management</title>
     <link rel="stylesheet" href="../css/styles.css">
+<script type="importmap">
+    {
+        "imports": {
+            "appwrite": "https://esm.sh/appwrite@13.0.2"
+        }
+    }
+    </script>
 </head>
+
 <body>
     <div id="app">
         <nav>
@@ -21,23 +30,23 @@
             <div class="dashboard">
                 <div class="card">
                     <h3>Catering Items</h3>
-                    <button onclick="openModal('add-catering-modal')">Add Catering Item</button>
-                    <button onclick="viewItems('catering')">View/Edit Catering Items</button>
+                    <button class="open-modal" data-modal="add-catering-modal">Add Catering Item</button>
+                    <button class="view-items" data-type="catering">View/Edit Catering Items</button>
                 </div>
                 <div class="card">
                     <h3>Stationery Items</h3>
-                    <button onclick="openModal('add-stationery-modal')">Add Stationery Item</button>
-                    <button onclick="viewItems('stationery')">View/Edit Stationery Items</button>
+                    <button class="open-modal" data-modal="add-stationery-modal">Add Stationery Item</button>
+                    <button class="view-items" data-type="stationery">View/Edit Stationery Items</button>
                 </div>
                 <div class="card">
                     <h3>Services Menu</h3>
-                    <button onclick="openModal('add-service-modal')">Add Service</button>
-                    <button onclick="viewItems('services')">View/Edit Services</button>
+                    <button class="open-modal" data-modal="add-service-modal">Add Service</button>
+                    <button class="view-items" data-type="services">View/Edit Services</button>
                 </div>
                 <div class="card">
                     <h3>Voyager Registration</h3>
-                    <button onclick="openModal('register-voyager-modal')">Register New Voyager</button>
-                    <button onclick="viewVoyagers()">View Voyagers</button>
+                    <button class="open-modal" data-modal="register-voyager-modal">Register New Voyager</button>
+                    <button class="view-voyagers">View Voyagers</button>
                 </div>
             </div>
 
@@ -46,7 +55,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Add Catering Item</h3>
-                        <span class="close" onclick="closeModal('add-catering-modal')">&times;</span>
+                        <span class="close" data-modal="add-catering-modal">&times;</span>
                     </div>
                     <form id="add-catering-form">
                         <div class="form-group">
@@ -79,7 +88,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Add Stationery Item</h3>
-                        <span class="close" onclick="closeModal('add-stationery-modal')">&times;</span>
+                        <span class="close" data-modal="add-stationery-modal">&times;</span>
                     </div>
                     <form id="add-stationery-form">
                         <div class="form-group">
@@ -112,7 +121,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Add Service</h3>
-                        <span class="close" onclick="closeModal('add-service-modal')">&times;</span>
+                        <span class="close" data-modal="add-service-modal">&times;</span>
                     </div>
                     <form id="add-service-form">
                         <div class="form-group">
@@ -150,7 +159,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Register New Voyager</h3>
-                        <span class="close" onclick="closeModal('register-voyager-modal')">&times;</span>
+                        <span class="close" data-modal="register-voyager-modal">&times;</span>
                     </div>
                     <form id="register-voyager-form">
                         <div class="form-group">
@@ -175,7 +184,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 id="items-list-title">Items</h3>
-                        <span class="close" onclick="closeModal('items-list-modal')">&times;</span>
+                        <span class="close" data-modal="items-list-modal">&times;</span>
                     </div>
                     <div id="items-list-content"></div>
                 </div>
@@ -184,5 +193,5 @@
     </div>
     <script type="module" src="../js/admin.js"></script>
 </body>
-</html>
 
+</html>
